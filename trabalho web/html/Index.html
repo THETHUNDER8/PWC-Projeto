@@ -7,9 +7,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  <script src="../javascript/scriptWeatherForcastAPI.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/styles.CSS">
 </head>
-<body style="background-color: skyblue;">
+<body>
   <! –– menus ––>
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
     <div class="container-fluid justify-content-center ">
@@ -29,63 +32,75 @@
   <! –– resultados da pesquisa ––>
   <div class="container mt-5">
     <div class="row">
-      <div class="col-sm-12 ">
-        <form class="d-flex">
-          <input class="form-control " type="text" placeholder="Cidade">
-          <button class="btn btn-primary" type="button" id="btSearch">Procurar</button>
-        </form>
-        <h2>Forecast </h2>
-        <h5>cidades</h5>
-        <hr class="d-sm-none">
+      <div class="col-md-4 offset-md-4">
+          <form class="d-flex input-group col-md-8 col-lg-6 col-xl-9">
+              <input class="form-control" id="pesquisa" type="text" name="pesquisa" placeholder="Cidade">
+              <button class="btn btn-primary" type="button" id="btSearch"><i class="fa fa-search"></i></button>       
+          </form>
       </div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-8 col-lg-6 col-xl-12">
+          <div class="card shadow-0 border">
+           <div class="card-body p-4">
+                <h4 id="name"></h4><h4 id="country"></h4>
+                <p id="temp"></p>
+                <p><span id="max"></span><span id="min"></span></p>
+                <p id="feels_like"></p>
+                <p class="vento"></p>
+                <p class="humidade"></p>
+                <p class="nuvens"></p>
+                <p class="PressAtmosferica"></p>
+                <p><span id="long"></span><span id="lat"></span></p>
+               <div class="d-flex flex-row align-items-center">
+                  <p id="description"></p>
+                  <i id="WeatherIcon" style="color: #eee;"></i>
+               </div>
+                <button class="btn btn-primary bi bi-star" ><i class="bi bi-star-fill"></i>Favoritos</button>
+           </div>
+          </div>
+        </div>
     </div>
   </div>
   <! –– forcast de 6 cidades ––>
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card shadow-0 border">
+        <div id="bg1" class="card  bg-image shadow-0 border">
           <div class="card-body p-4">
-              <h4 class="Cidade">New York, US</h4>
-              <p class="Temperatura">Current temperature: <strong>5.42°C</strong></p>
-              <p>Max: <strong>6.11°C</strong>, Min: <strong>3.89°C</strong></p>
-
-              <div class="d-flex flex-row align-items-center">
-                <p class="Weather">Scattered Clouds</p>
-                <i class="WeatherIcon" style="color: #eee;"></i>
-              </div>
-              <div>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star"></i>
-              </div>
+              <h2 id="name1"></h2>
+              <h4 id="country1"></h4>
+              <h6 id="temp1"></h6>
+              <h6 id="max1"></h6>
+              <h6 id="min1"></h6>
+              <h6 id="feels_like1"></h6>
+              <h6 id="description1"></h6>
           </div>
         </div>
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card shadow-0 border">
+        <div id="bg2" class="card shadow-0 border">
           <div class="card-body p-4">
-              <h4 class="Cidade">New York, US</h4>
-              <p class="Temperatura">Current temperature: <strong>5.42°C</strong></p>
-              <p>Max: <strong>6.11°C</strong>, Min: <strong>3.89°C</strong></p>
-
-              <div class="d-flex flex-row align-items-center">
-                <p class="Weather">Scattered Clouds</p>
-                <i class="WeatherIcon" style="color: #eee;"></i>
-              </div>
+              <h2 id="name2"></h2>
+              <h4 id="country2"></h4>
+              <h6 id="temp2"></h6>
+              <h6 id="max2"></h6>
+              <h6 id="min2"></h6>
+              <h6 id="feels_like2"></h6>
+              <h6 id="description2"></h6>
           </div>
         </div>
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card shadow-0 border">
+        <div id="bg3" class="card shadow-0 border">
           <div class="card-body p-4">
-              <h4 class="Cidade">New York, US</h4>
-              <p class="Temperatura">Current temperature: <strong>5.42°C</strong></p>
-              <p>Max: <strong>6.11°C</strong>, Min: <strong>3.89°C</strong></p>
-
-              <div class="d-flex flex-row align-items-center">
-                <p class="Weather">Scattered Clouds</p>
-                <i class="WeatherIcon" style="color: #eee;"></i>
-              </div>
+              <h2 id="name3"></h2>
+              <h4 id="country3"></h4>
+              <h6 id="temp3"></h6>
+              <h6 id="max3"></h6>
+              <h6 id="min3"></h6>
+              <h6 id="feels_like3"></h6>
+              <h6 id="description3"></h6>
           </div>
         </div>
       </div>
@@ -94,45 +109,41 @@
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center h-100">
       <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card shadow-0 border">
+        <div id="bg4" class="card shadow-0 border">
           <div class="card-body p-4">
-              <h4 class="Cidade">New York, US</h4>
-              <p class="Temperatura">Current temperature: <strong>5.42°C</strong></p>
-              <p>Max: <strong>6.11°C</strong>, Min: <strong>3.89°C</strong></p>
-
-              <div class="d-flex flex-row align-items-center">
-                <p class="Weather">Scattered Clouds</p>
-                <i class="WeatherIcon" style="color: #eee;"></i>
-              </div>
+              <h2 id="name4"></h2>
+              <h4 id="country4"></h4>
+              <h6 id="temp4"></h6>
+              <h6 id="max4"></h6>
+              <h6 id="min4"></h6>
+              <h6 id="feels_like4"></h6>
+              <h6 id="description4"></h6>
           </div>
         </div>
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card shadow-0 border">
+        <div id="bg5" class="card shadow-0 border">
           <div class="card-body p-4">
-              <h4 class="Cidade">New York, US</h4>
-              <p class="Temperatura">Current temperature: <strong>5.42°C</strong></p>
-              <p>Max: <strong>6.11°C</strong>, Min: <strong>3.89°C</strong></p>
-
-              <div class="d-flex flex-row align-items-center">
-                <p class="Weather">Scattered Clouds</p>
-                <i class="WeatherIcon" style="color: #eee;"></i>
-              </div>
+              <h2 id="name5"></h2>
+              <h4 id="country5"></h4>
+              <h6 id="temp5"></h6>
+              <h6 id="max5"></h6>
+              <h6 id="min5"></h6>
+              <h6 id="feels_like5"></h6>
+              <h6 id="description5"></h6>
           </div>
         </div>
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card shadow-0 border">
+        <div id="bg6" class="card shadow-0 border">
           <div class="card-body p-4">
-              <h4 class="mb-1 sfw-normal">New York, US</h4>
-              <p class="mb-2">Current temperature: <strong>5.42°C</strong></p>
-              <p>Feels like: <strong>4.37°C</strong></p>
-              <p>Max: <strong>6.11°C</strong>, Min: <strong>3.89°C</strong></p>
-
-              <div class="d-flex flex-row align-items-center">
-                <p class="mb-0 me-4">Scattered Clouds</p>
-                <i class="fas fa-cloud fa-3x" style="color: #eee;"></i>
-              </div>
+              <h2 id="name6"></h2>
+              <h4 id="country6"></h4>
+              <h6 id="temp6"></h6>
+              <h6 id="max6"></h6>
+              <h6 id="min6"></h6>
+              <h6 id="feels_like6"></h6>
+              <h6 id="description6"></h6>
           </div>
         </div>
       </div>
@@ -140,8 +151,7 @@
   </div>
   <! –– footer ––>
   <div class="mt-5 p-4 bg-dark text-white text-center">
-    <p>Footer</p>
+    <p>Trabalho realizado por: Hugo Gonçalves</p>
   </div>
-  <script src="scriptWeatherForcast.js"></script>
 </body>
 </html>
