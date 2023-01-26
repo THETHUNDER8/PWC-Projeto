@@ -1,17 +1,18 @@
 const API_KEY = "&appid=9a69c91bcc707914fff925bc7df54ef3";
-const apiWeatherURL="https://api.openweathermap.org/data/2.5/weather?";
+const apiWeatherURL_current="https://api.openweathermap.org/data/2.5/weather?";
+const apiWeatherURL_forecast="https://api.openweathermap.org/data/2.5/forecast?";
 const LIMIT_RESPONSE = "&limit=1";
 const units = "&units=metric";
 const lang = "&lang=pt";
-const CARDMAIN1 = apiWeatherURL + "q=Londres"+ units+ API_KEY + lang;
-const CARDMAIN2 = apiWeatherURL + "q=Nova York"+ units+ API_KEY + lang;
-const CARDMAIN3 = apiWeatherURL + "q=Lisboa"+ units+ API_KEY + lang;
-const CARDMAIN4 = apiWeatherURL + "q=Rio de Janeiro"+ units+ API_KEY + lang;
-const CARDMAIN5 = apiWeatherURL + "q=Tokio"+ units+ API_KEY + lang;
-const CARDMAIN6 = apiWeatherURL + "q=Nova Delhi"+ units+ API_KEY + lang;
+const CARDMAIN1 = apiWeatherURL_current + "q=Londres"+ units+ API_KEY + lang;
+const CARDMAIN2 = apiWeatherURL_current + "q=Nova York"+ units+ API_KEY + lang;
+const CARDMAIN3 = apiWeatherURL_current + "q=Lisboa"+ units+ API_KEY + lang;
+const CARDMAIN4 = apiWeatherURL_current + "q=Rio de Janeiro"+ units+ API_KEY + lang;
+const CARDMAIN5 = apiWeatherURL_current + "q=Tokio"+ units+ API_KEY + lang;
+const CARDMAIN6 = apiWeatherURL_current + "q=Nova Delhi"+ units+ API_KEY + lang;
 
 //Função que processa informação relativa as 6 cidades apresentadas no Home
-function getWeatherData(apiUrl, nameId, countryId, tempId, tempMaxId, tempMinId, feelsLikeId, descriptionId,bgId) {
+function getCardWeatherData(apiUrl, nameId, countryId, tempId, tempMaxId, tempMinId, feelsLikeId, descriptionId,bgId) {
     fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
@@ -33,248 +34,96 @@ function getWeatherData(apiUrl, nameId, countryId, tempId, tempMaxId, tempMinId,
 
 // Função de Backgrounds relativa as 6 cidades apresentadas no Home
 function backgrounfimg(main,bgId){
-switch (main) {
-case "Snow":
-document.getElementById(bgId).style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
-break;
-case "Clouds":
-document.getElementById(bgId).style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
-break;
-case "Fog":
-document.getElementById(bgId).style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif')";
-break;
-case "Rain":
-document.getElementById(bgId).style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
-break;
-case "Clear":
-document.getElementById(bgId).style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-break;
-case "Thunderstorm":
-document.getElementById(bgId).style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif')";
-document.getElementById(bgId).style.color = "white";//como o fundo é preto muda a cor para branco
-break;
-default:
-document.getElementById(bgId).style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-break;
+	switch (main) {
+		case "Snow":
+		document.getElementById(bgId).style.backgroundImage =
+		"url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
+		break;
+		case "Clouds":
+		document.getElementById(bgId).style.backgroundImage =
+		"url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
+		break;
+		case "Fog":
+		case "Haze":
+		case "Mist":
+		document.getElementById(bgId).style.backgroundImage =
+		"url('https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif')";
+		break;
+		case "Rain":
+		document.getElementById(bgId).style.backgroundImage =
+		"url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
+		break;
+		case "Clear":
+		document.getElementById(bgId).style.backgroundImage =
+		"url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
+		break;
+		case "Thunderstorm":
+		document.getElementById(bgId).style.backgroundImage =
+		"url('https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif')";
+		document.getElementById(bgId).style.color = "white";//como o fundo é preto muda a cor para branco
+		break;
+		default:
+		document.getElementById(bgId).style.backgroundImage =
+		"url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
+		break;
+	};
 };
-};
 
-getWeatherData(CARDMAIN1,'name1','country1','temp1','max1','min1','feels_like1','description1','bg1');
-getWeatherData(CARDMAIN2,'name2','country2','temp2','max2','min2','feels_like2','description2','bg2');
-getWeatherData(CARDMAIN3,'name3','country3','temp3','max3','min3','feels_like3','description3','bg3');
-getWeatherData(CARDMAIN4,'name4','country4','temp4','max4','min4','feels_like4','description4','bg4');
-getWeatherData(CARDMAIN5,'name5','country5','temp5','max5','min5','feels_like5','description5','bg5');
-getWeatherData(CARDMAIN6,'name6','country6','temp6','max6','min6','feels_like6','description6','bg6');
+getCardWeatherData(CARDMAIN1,'name1','country1','temp1','max1','min1','feels_like1','description1','bg1');
+getCardWeatherData(CARDMAIN2,'name2','country2','temp2','max2','min2','feels_like2','description2','bg2');
+getCardWeatherData(CARDMAIN3,'name3','country3','temp3','max3','min3','feels_like3','description3','bg3');
+getCardWeatherData(CARDMAIN4,'name4','country4','temp4','max4','min4','feels_like4','description4','bg4');
+getCardWeatherData(CARDMAIN5,'name5','country5','temp5','max5','min5','feels_like5','description5','bg5');
+getCardWeatherData(CARDMAIN6,'name6','country6','temp6','max6','min6','feels_like6','description6','bg6');
 
-
-var cloneMedia = $('.media').clone();
+//pesquisa cidade
 $('#btSearch').on('click', function(){
-
 	var search = $('#pesquisa').val();
-	$('.panel-title').text('Search results for "'+ search +'"');
-	
-	$('.media-list').html('');
-	var forcast = apiWeatherURL + "q=" + search + units+ API_KEY + lang;
-
-	$.ajax({
-
-		method: "GET",
-		url: forcast
-	}).done(function( msg ) {
-		
-		msg.Search.forEach(function(result){
-			var liMedia = cloneMedia.clone();
-
-			var posterURL = result.Poster;
-			if (posterURL == "N/A" || posterURL == "")
-			{
-				posterURL = DEFAULT_POSTER;
-			}
-			var poster = $('#image', liMedia);
-			poster.on("error", function(event){
-				event.target.src = DEFAULT_POSTER;
-			});
-			poster.attr("src", posterURL);
-
-			$('.title', liMedia).text(result.Title);
-			$('.ano', liMedia).text(result.Year);
-			$('.tipo', liMedia).text(result.Type);
-			$('.media-list').append(liMedia);	
-		});
+	var getForecast = apiWeatherURL_forecast + "q=" + search + units+ API_KEY + lang;
+	let index = 0;
+	fetch(getForecast)
+	.then((response) => response.json())
+	.then((data) => {
+		console.log(data);
+		let resultado = document.querySelector("#resultado_Pesquisa");
+		resultado.innerHTML = data.list
+		.slice(0, 40)
+ 		.filter((day, index) => index % 8 === 0)
+      	.map((day) => {
+        if (index <= 40) {
+          let dt = new Date(day.dt * 1000); //timestamp * 1000
+          return `<div class="col-md-8 col-lg-6 col-xl-4">
+          <div class="card shadow-0 border">
+           <div class="card-body p-4">
+           		<h5 class="card-title p-2">${dt.toDateString()}</h5>
+                <div class="d-flex flex-row align-items-center">
+                  <img
+                  src="http://openweathermap.org/img/wn/${day.weather[0].icon}@4x.png"
+                  class="card-img-top"alt="${day.weather[0].description}"
+                />
+                </div>
+                <h3 id="tempo">${day.weather[0].main}</h3>
+                <h2 id="name">${data.city.name}</h2>
+                <h4 id="country">${data.city.country}</h4>
+                <h6 id="temp">Temperatura:${day.main.temp}&degC</h6>
+                <h6><span id="max">Max:${day.main.temp_max}&degC  </span><span id="min">  Min:${day.main.temp_min}&degC</span></h6>
+                <h6 id="feels_like">Temperatura aparente:${day.main.feels_like}&degC</h6>
+                <h6 id="vento">Vento:${day.wind.speed}m/s</h6>
+                <h6 id="humidade">Humidade:${day.main.humidity}%</h6>
+                <h6 id="nuvens">Cobertura de nuvens:${day.clouds.all}%</h6>
+                <h6 id="PressAtmosferica">Pressão atmosférica:${day.main.pressure}hPa</h6>
+                <h6><span id="long">Longitude:${data.city.coord.lon}  </span><span id="lat">  Latitude:${data.city.coord.lat}</span></h6>
+                
+               </div>
+               <button class="btn btn-primary bi bi-star" ><i class="bi bi-star-fill"></i>Favoritos</button>
+           </div>
+          </div>`;
+        }
+      })
+      .join(' ');
 	});
-	fetch(forcast)
-.then((response) => response.json())
-.then((data) => {
-// Weather main data
-let main1 = data.weather.main;
-
-console.log(data)
-});
 });
 
-
-/*
-// API call
-let queryUrl = "https://api.openweathermap.org/data/2.5/onecall?";
-let lat = "lat=52.229676&";
-let lon = "lon=21.012229&";
-let apiOptions = "units=metric&exclude=minutely,alerts&";
-let apiKey = "appid=dbb76c5d98d5dbafcb94441c6a10236e";
-let file = queryUrl + lat + lon + apiOptions + apiKey;
-
-fetch(file)
-.then((response) => response.json())
-.then((data) => {
-// Weather main data
-let main = data.current.weather[0].main;
-let description = data.current.weather[0].description;
-let temp = Math.round(data.current.temp);
-let pressure = data.current.pressure;
-let humidity = data.current.humidity;
-let name = "Warsaw";
-
-document.getElementById("wrapper-description").innerHTML = description;
-document.getElementById("wrapper-temp").innerHTML = temp + "°C";
-document.getElementById("wrapper-pressure").innerHTML = pressure;
-document.getElementById("wrapper-humidity").innerHTML = humidity + "°C";
-document.getElementById("wrapper-name").innerHTML = name;
-
-// Weather hourly data
-let hourNow = data.hourly[0].temp;
-let hour1 = data.hourly[1].temp;
-let hour2 = data.hourly[2].temp;
-let hour3 = data.hourly[3].temp;
-let hour4 = data.hourly[4].temp;
-let hour5 = data.hourly[5].temp;
-
-document.getElementById("wrapper-hour-now").innerHTML = hourNow + "°";
-document.getElementById("wrapper-hour1").innerHTML = hour1 + "°";
-document.getElementById("wrapper-hour2").innerHTML = hour2 + "°";
-document.getElementById("wrapper-hour3").innerHTML = hour3 + "°";
-document.getElementById("wrapper-hour4").innerHTML = hour4 + "°";
-document.getElementById("wrapper-hour5").innerHTML = hour5 + "°";
-
-// Time
-let timeNow = new Date().getHours();
-let time1 = timeNow + 1;
-let time2 = time1 + 1;
-let time3 = time2 + 1;
-let time4 = time3 + 1;
-let time5 = time4 + 1;
-
-document.getElementById("wrapper-time1").innerHTML = time1;
-document.getElementById("wrapper-time2").innerHTML = time2;
-document.getElementById("wrapper-time3").innerHTML = time3;
-document.getElementById("wrapper-time4").innerHTML = time4;
-document.getElementById("wrapper-time5").innerHTML = time5;
-
-// Weather daily data
-let tomorrowTemp = Math.round(data.daily[0].temp.day);
-let dATTemp = Math.round(data.daily[1].temp.day);
-let tomorrowMain = data.daily[0].weather[0].main;
-let dATTempMain = data.daily[1].weather[0].main;
-
-document.getElementById("wrapper-forecast-temp-today").innerHTML =
-temp + "°";
-document.getElementById("wrapper-forecast-temp-tomorrow").innerHTML =
-tomorrowTemp + "°";
-document.getElementById("wrapper-forecast-temp-dAT").innerHTML =
-dATTemp + "°";
-
-// Icons
-let iconBaseUrl = "http://openweathermap.org/img/wn/";
-let iconFormat = ".webp";
-
-// Today
-let iconCodeToday = data.current.weather[0].icon;
-let iconFullyUrlToday = iconBaseUrl + iconCodeToday + iconFormat;
-document.getElementById("wrapper-icon-today").src = iconFullyUrlToday;
-
-// Tomorrow
-let iconCodeTomorrow = data.daily[0].weather[0].icon;
-let iconFullyUrlTomorrow = iconBaseUrl + iconCodeTomorrow + iconFormat;
-document.getElementById(
-"wrapper-icon-tomorrow"
-).src = iconFullyUrlTomorrow;
-
-// Day after tomorrow
-let iconCodeDAT = data.daily[1].weather[0].icon;
-let iconFullyUrlDAT = iconBaseUrl + iconCodeDAT + iconFormat;
-document.getElementById("wrapper-icon-dAT").src = iconFullyUrlDAT;
-
-// Icons hourly
-
-// Hour now
-let iconHourNow = data.hourly[0].weather[0].icon;
-let iconFullyUrlHourNow = iconBaseUrl + iconHourNow + iconFormat;
-document.getElementById(
-"wrapper-icon-hour-now"
-).src = iconFullyUrlHourNow;
-
-// Hour1
-let iconHour1 = data.hourly[1].weather[0].icon;
-let iconFullyUrlHour1 = iconBaseUrl + iconHour1 + iconFormat;
-document.getElementById("wrapper-icon-hour1").src = iconFullyUrlHour1;
-
-// Hour2
-let iconHour2 = data.hourly[2].weather[0].icon;
-let iconFullyUrlHour2 = iconBaseUrl + iconHour2 + iconFormat;
-document.getElementById("wrapper-icon-hour2").src = iconFullyUrlHour1;
-
-// Hour3
-let iconHour3 = data.hourly[3].weather[0].icon;
-let iconFullyUrlHour3 = iconBaseUrl + iconHour3 + iconFormat;
-document.getElementById("wrapper-icon-hour3").src = iconFullyUrlHour3;
-
-// Hour4
-let iconHour4 = data.hourly[4].weather[0].icon;
-let iconFullyUrlHour4 = iconBaseUrl + iconHour4 + iconFormat;
-document.getElementById("wrapper-icon-hour4").src = iconFullyUrlHour4;
-
-// Hour5
-let iconHour5 = data.hourly[5].weather[0].icon;
-let iconFullyUrlHour5 = iconBaseUrl + iconHour5 + iconFormat;
-document.getElementById("wrapper-icon-hour5").src = iconFullyUrlHour5;
-
-// Backgrounds
-switch (main) {
-case "Snow":
-document.getElementById("wrapper-bg").style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
-break;
-case "Clouds":
-document.getElementById("wrapper-bg").style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
-break;
-case "Fog":
-document.getElementById("wrapper-bg").style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif')";
-break;
-case "Rain":
-document.getElementById("wrapper-bg").style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
-break;
-case "Clear":
-document.getElementById("wrapper-bg").style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-break;
-case "Thunderstorm":
-document.getElementById("wrapper-bg").style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif')";
-break;
-default:
-document.getElementById("wrapper-bg").style.backgroundImage =
-"url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-break;
-}
-});
 
 /*
 var BOOKMARK={};BOOKMARK.max=max_bookmark;BOOKMARK.checkLocalStorage=function(){return typeof(Storage)==="function";};BOOKMARK.storeLocalStorage=function(name,data){if(false==BOOKMARK.checkLocalStorage())
