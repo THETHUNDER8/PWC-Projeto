@@ -4,12 +4,13 @@ const apiWeatherURL_forecast="https://api.openweathermap.org/data/2.5/forecast?"
 const LIMIT_RESPONSE = "&limit=1";
 const units = "&units=metric";
 const lang = "&lang=pt";
-const CARDMAIN1 = apiWeatherURL_current + "q=Londres"+ units+ API_KEY + lang;
+const CARDMAIN1 = apiWeatherURL_current + "q=Russia"+ units+ API_KEY + lang;
 const CARDMAIN2 = apiWeatherURL_current + "q=Nova York"+ units+ API_KEY + lang;
 const CARDMAIN3 = apiWeatherURL_current + "q=Lisboa"+ units+ API_KEY + lang;
 const CARDMAIN4 = apiWeatherURL_current + "q=Rio de Janeiro"+ units+ API_KEY + lang;
 const CARDMAIN5 = apiWeatherURL_current + "q=Tokio"+ units+ API_KEY + lang;
 const CARDMAIN6 = apiWeatherURL_current + "q=Nova Delhi"+ units+ API_KEY + lang;
+
 
 //Função que processa informação relativa as 6 cidades apresentadas no Home
 function getCardWeatherData(apiUrl, nameId, countryId, tempId, tempMaxId, tempMinId, feelsLikeId, descriptionId,bgId) {
@@ -38,6 +39,7 @@ function backgrounfimg(main,bgId){
 		case "Snow":
 		document.getElementById(bgId).style.backgroundImage =
 		"url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
+		document.getElementById(bgId).style.color = "white";//como o fundo é preto muda a cor para branco
 		break;
 		case "Clouds":
 		document.getElementById(bgId).style.backgroundImage =
@@ -69,6 +71,7 @@ function backgrounfimg(main,bgId){
 	};
 };
 
+//mostra as 6 cidades no home
 getCardWeatherData(CARDMAIN1,'name1','country1','temp1','max1','min1','feels_like1','description1','bg1');
 getCardWeatherData(CARDMAIN2,'name2','country2','temp2','max2','min2','feels_like2','description2','bg2');
 getCardWeatherData(CARDMAIN3,'name3','country3','temp3','max3','min3','feels_like3','description3','bg3');
@@ -79,9 +82,9 @@ getCardWeatherData(CARDMAIN6,'name6','country6','temp6','max6','min6','feels_lik
 //pesquisa cidade
 $('#btSearch').on('click', function(){
 	var search = $('#pesquisa').val();
-	var getForecast = apiWeatherURL_forecast + "q=" + search + units+ API_KEY + lang;
+	var infoFavorito = apiWeatherURL_forecast + "q=" + search + units+ API_KEY + lang;
 	let index = 0;
-	fetch(getForecast)
+	fetch(infoFavorito)
 	.then((response) => response.json())
 	.then((data) => {
 		console.log(data);
@@ -115,7 +118,7 @@ $('#btSearch').on('click', function(){
                 <h6><span id="long">Longitude:${data.city.coord.lon}  </span><span id="lat">  Latitude:${data.city.coord.lat}</span></h6>
                 
                </div>
-               <button class="btn btn-primary bi bi-star" ><i class="bi bi-star-fill"></i>Favoritos</button>
+               
            </div>
           </div>`;
         }
@@ -124,18 +127,62 @@ $('#btSearch').on('click', function(){
 	});
 });
 
+$(carregarFavorito);
 
-/*
-var BOOKMARK={};BOOKMARK.max=max_bookmark;BOOKMARK.checkLocalStorage=function(){return typeof(Storage)==="function";};BOOKMARK.storeLocalStorage=function(name,data){if(false==BOOKMARK.checkLocalStorage())
-return false;return localStorage.setItem(name,JSON.stringify(data));};BOOKMARK.getLocalStorage=function(name){if(typeof name===undefined)
-return false;if(false==BOOKMARK.checkLocalStorage())
-return false;if(name in localStorage===false)
-return false;return JSON.parse(localStorage[name]);};BOOKMARK.getStored=function(){var bookmarks=BOOKMARK.getLocalStorage("bookmark");if(false==bookmarks)return[];if(typeof(bookmarks)!==typeof([]))return[];else return bookmarks;};BOOKMARK.find=function(id){if(false==BOOKMARK.checkLocalStorage()){return false;}
-var stored=BOOKMARK.getStored();var index=stored.indexOf(id);return index;};BOOKMARK.remove=function(id){if(false==BOOKMARK.checkLocalStorage()){return false;}
-var stored=BOOKMARK.getStored();var index=stored.indexOf(id);if(index===-1)return true;stored.splice(index,1);BOOKMARK.storeLocalStorage("bookmark",stored);jQuery.post(ajaxurl,{"action":"bookmark_remove","id":id});return true;};BOOKMARK.push=function(id){if(false==BOOKMARK.checkLocalStorage()){alert('Maaf, browser anda tidak mendukung fitur ini.\nGunakan browser google chrome / mozilla');return false;}
-if(isNaN(id))return false;var stored=BOOKMARK.getStored();if(stored.length>=BOOKMARK.max){stored=stored.slice(-BOOKMARK.max);BOOKMARK.storeLocalStorage("bookmark",stored);alert("Maaf, anda mencapai batas bookmark, \nsilahkan hapus anime lain dari bookmark");return false;}
-if(stored.indexOf(id)!==-1){return true;}
-stored.unshift(id);BOOKMARK.storeLocalStorage("bookmark",stored);jQuery.post(ajaxurl,{"action":"bookmark_push","id":id});return true;};BOOKMARK.check=function(){var BMEl=jQuery("div.bookmark[data-id]");if(BMEl.length<1)return false;var id=BMEl.get(0).getAttribute('data-id');if(isNaN(id))return false;var bindex=BOOKMARK.find(id);if(!isNaN(bindex)&&bindex!==-1){BMEl.html('<i class="fas fa-bookmark" aria-hidden="true"></i> Bookmarked');BMEl.addClass('marked');return true;}else{BMEl.html('<i class="far fa-bookmark" aria-hidden="true"></i> Bookmark');BMEl.removeClass('marked');return false;}};BOOKMARK.listener=function(){var BMEl=jQuery("div.bookmark[data-id]");if(BMEl.length<1)return false;BMEl.on('click',function(){var id=this.getAttribute('data-id');if(isNaN(id))return false;if(BOOKMARK.find(id)===-1){BOOKMARK.push(id);}else{BOOKMARK.remove(id);}
-BOOKMARK.check();return true;});};
+function carregarFavorito()
+{
+    if (typeof(Storage) === "undefined")  // Verifica se o browser suporta local storage
+    {
+        erroLocalStorage();
+        return;
+    }
 
-*/
+    // Recupera os favoritos guardados na storage
+    var favoritos = JSON.parse(localStorage.getItem("favoritos"));
+
+    if ( $("#pesquisaCidade").length) // index.html
+    {
+        $("#name").val(favoritos.name); // Coloca os favoritos nas respetivas caixas de input
+        $("#temp").val(favoritos.temp);
+        $("#temp_max").val(favoritos.temp_max);
+        $("#temp_min").val(favoritos.temp_min);
+        $("#description").val(favoritos.description);
+    }
+    else if ( $("body#favoritos").length) // Favoritos.html
+    {
+        $("#favorito").text(" " + favoritos.name + favoritos.temp + favoritos.temp_max + 
+        favoritos.temp_min + favoritos.description ); // Coloca o nome no título
+    }
+}
+
+function submeterFavorito(event)
+{
+    if (typeof(Storage) !== "undefined") 
+    {
+        var favoritos = { // Objeto JSON
+            "name" : $("#name").val(),
+            "temp" : $("#temp").val(),
+            "temp_max" : $("#temp_max").val(),
+            "temp_min" : $("#temp_min").val(),
+            "description" : $("#description").val()
+
+        };
+
+        localStorage.setItem("favoritos", JSON.stringify(favoritos)); // Guarda os favoritos na local storage
+    } 
+    else 
+    {
+        erroLocalStorage();
+    }
+}
+
+function removerFavorito()
+{
+    localStorage.removeItem("favoritos");
+}
+
+function erroLocalStorage()
+{
+    $( "#error" ).text( "Not valid!" ).show().fadeOut( 1000 );
+    event.preventDefault();
+}
